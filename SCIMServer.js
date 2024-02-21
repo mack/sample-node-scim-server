@@ -15,6 +15,7 @@
 
 let express = require('express');
 let app = express();
+let url = require('url');
 let bodyParser = require('body-parser');
 let db = require('./core/Database');
 let out = require('./core/Logs');
@@ -24,6 +25,10 @@ let cGroups = require('./components/Groups');
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+/*Set EJS template Engine*/
+app.set('views','./views');
+app.set('view engine','ejs');
 
 let port = process.env.PORT || 8081; // Support for Heroku
 
@@ -93,6 +98,16 @@ app.put('/scim/v2/Groups/:groupId', cGroups.updateGroup);
  */
 app.get('/scim/v2', function (req, res) {
     res.send('SCIM');
+});
+
+/**
+ * GET {{baseUrl}}/scim/v2
+ * Default SCIM endpoint
+ */
+app.get('/', async function (req, res) {
+    await db.rawDB.all("SELECT * FROM Users", async function (err, rows) {
+        res.render("index.ejs", {title: 'Snyk - Manage Users', data: rows}) 
+    });
 });
 
 let server = app.listen(port, function () {

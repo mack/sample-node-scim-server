@@ -452,6 +452,16 @@ class Database {
             } else if (rows === undefined) {
                 callback(scimCore.createSCIMError("User Not Found", "404"));
             } else {
+                if (userModel["active"] == false || userModel["active"] == "false") {
+                    db.run("DELETE FROM Users WHERE id = '" + String(userId) + "'", async function(err) {
+                        callback(scimCore.createSCIMUser(userId, rows.active, userModel["userName"], userModel["givenName"],
+                        userModel["middleName"], userModel["familyName"], userModel["email"],
+                        [], reqUrl));
+                    });
+                    return;
+                }
+
+
                 query = "UPDATE Users SET userName = '" + userModel["userName"] + "', givenName = '" + userModel["givenName"] +
                     "', middleName = '" + userModel["middleName"] + "', familyName = '" + userModel["familyName"] +
                     "', email = '" + userModel["email"] + "' WHERE id = '" + String(userId) + "'";
@@ -464,6 +474,12 @@ class Database {
                     }
 
                     let groups = userModel["groups"];
+                    if (groups.length == 0) {
+                        callback(scimCore.createSCIMUser(userId, rows.active, userModel["userName"], userModel["givenName"],
+                        userModel["middleName"], userModel["familyName"], userModel["email"],
+                        groups, reqUrl));
+                        return;
+                    }
                     let membershipId = null;
 
                     query = "INSERT INTO GroupMemberships (id, groupId, userId) VALUES";
@@ -599,5 +615,6 @@ class Database {
         return groupUsers;
     }
 }
+Database.rawDB = db;
 
 module.exports = Database;

@@ -22,11 +22,7 @@ class Groups {
 
             db.getFilteredGroups(attributeName, attributeValue, startIndex, count, reqUrl, function (result) {
                 if (result["status"] !== undefined) {
-                    if (result["status"] === "400") {
-                        res.writeHead(400, {"Content-Type": "text/plain"});
-                    } else if (result["status"] === "409") {
-                        res.writeHead(409, {"Content-Type": "text/plain"});
-                    }
+                    res.writeHead(Number(result['status']), {"Content-Type": "text/plain"});
 
                     out.log("ERROR", "Groups.listGroups", "Encountered error " + result["status"] + ": " + result["detail"]);
                 } else {
@@ -41,11 +37,7 @@ class Groups {
         } else {
             db.getAllGroups(startIndex, count, reqUrl, function (result) {
                 if (result["status"] !== undefined) {
-                    if (result["status"] === "400") {
-                        res.writeHead(400, {"Content-Type": "text/plain"});
-                    } else if (result["status"] === "409") {
-                        res.writeHead(409, {"Content-Type": "text/plain"});
-                    }
+                    res.writeHead(Number(result['status']), {"Content-Type": "text/plain"});
 
                     out.log("ERROR", "Groups.listGroups", "Encountered error " + result["status"] + ": " + result["detail"]);
                 } else {
@@ -69,11 +61,7 @@ class Groups {
 
         db.getGroup(groupId, reqUrl, function (result) {
             if (result["status"] !== undefined) {
-                if (result["status"] === "400") {
-                    res.writeHead(400, {"Content-Type": "text/plain"});
-                } else if (result["status"] === "409") {
-                    res.writeHead(409, {"Content-Type": "text/plain"});
-                }
+                res.writeHead(Number(result['status']), {"Content-Type": "text/plain"});
 
                 out.log("ERROR", "Groups.getGroup", "Encountered error " + result["status"] + ": " + result["detail"]);
             } else {
@@ -104,11 +92,7 @@ class Groups {
 
             db.createGroup(groupModel, reqUrl, function (result) {
                 if (result["status"] !== undefined) {
-                    if (result["status"] === "400") {
-                        res.writeHead(400, {"Content-Type": "text/plain"});
-                    } else if (result["status"] === "409") {
-                        res.writeHead(409, {"Content-Type": "text/plain"});
-                    }
+                    res.writeHead(Number(result['status']), {"Content-Type": "text/plain"});
 
                     out.log("ERROR", "Groups.createGroup", "Encountered error " + result["status"] + ": " + result["detail"]);
                 } else {
@@ -147,11 +131,7 @@ class Groups {
             if (operation === "replace") {
                 db.patchGroup(attribute, attributeValue, groupId, reqUrl, function (result) {
                     if (result["status"] !== undefined) {
-                        if (result["status"] === "400") {
-                            res.writeHead(400, {"Content-Type": "text/plain"});
-                        } else if (result["status"] === "409") {
-                            res.writeHead(409, {"Content-Type": "text/plain"});
-                        }
+                        res.writeHead(Number(result['status']), {"Content-Type": "text/plain"});
 
                         out.log("ERROR", "Groups.patchGroup", "Encountered error " + result["status"] + ": " + result["detail"]);
                     } else {
@@ -197,11 +177,7 @@ class Groups {
 
             db.updateGroup(groupModel, groupId, reqUrl, function (result) {
                 if (result["status"] !== undefined) {
-                    if (result["status"] === "400") {
-                        res.writeHead(400, {"Content-Type": "text/plain"});
-                    } else if (result["status"] === "409") {
-                        res.writeHead(409, {"Content-Type": "text/plain"});
-                    }
+                    res.writeHead(Number(result['status']), {"Content-Type": "text/plain"});
 
                     out.log("ERROR", "Groups.updateGroup", "Encountered error " + result["status"] + ": " + result["detail"]);
                 } else {

@@ -22,11 +22,7 @@ class Users {
 
             db.getFilteredUsers(attributeName, attributeValue, startIndex, count, reqUrl, function (result) {
                 if (result["status"] !== undefined) {
-                    if (result["status"] === "400") {
-                        res.writeHead(400, {"Content-Type": "text/plain"});
-                    } else if (result["status"] === "409") {
-                        res.writeHead(409, {"Content-Type": "text/plain"});
-                    }
+                    res.writeHead(Number(result['status']), {"Content-Type": "text/plain"});
 
                     out.log("ERROR", "Users.listUsers", "Encountered error " + result["status"] + ": " + result["detail"]);
                 } else {
@@ -41,11 +37,7 @@ class Users {
         } else {
             db.getAllUsers(startIndex, count, reqUrl, function (result) {
                 if (result["status"] !== undefined) {
-                    if (result["status"] === "400") {
-                        res.writeHead(400, {"Content-Type": "text/plain"});
-                    } else if (result["status"] === "409") {
-                        res.writeHead(409, {"Content-Type": "text/plain"});
-                    }
+                    res.writeHead(Number(result['status']), {"Content-Type": "text/plain"});
 
                     out.log("ERROR", "Users.listUsers", "Encountered error " + result["status"] + ": " + result["detail"]);
                 } else {
@@ -69,11 +61,7 @@ class Users {
 
         db.getUser(userId, reqUrl, function (result) {
             if (result["status"] !== undefined) {
-                if (result["status"] === "400") {
-                    res.writeHead(400, {"Content-Type": "text/plain"});
-                } else if (result["status"] === "409") {
-                    res.writeHead(409, {"Content-Type": "text/plain"});
-                }
+                res.writeHead(Number(result['status']), {"Content-Type": "text/plain"});
 
                 out.log("ERROR", "Users.listUsers", "Encountered error " + result["status"] + ": " + result["detail"]);
             } else {
@@ -104,11 +92,7 @@ class Users {
 
             db.createUser(userModel, reqUrl, function (result) {
                 if (result["status"] !== undefined) {
-                    if (result["status"] === "400") {
-                        res.writeHead(400, {"Content-Type": "text/plain"});
-                    } else if (result["status"] === "409") {
-                        res.writeHead(409, {"Content-Type": "text/plain"});
-                    }
+                    res.writeHead(Number(result['status']), {"Content-Type": "text/plain"});
 
                     out.log("ERROR", "Users.listUsers", "Encountered error " + result["status"] + ": " + result["detail"]);
                 } else {
@@ -147,11 +131,7 @@ class Users {
             if (operation === "replace") {
                 db.patchUser(attribute, attributeValue, userId, reqUrl, function (result) {
                     if (result["status"] !== undefined) {
-                        if (result["status"] === "400") {
-                            res.writeHead(400, {"Content-Type": "text/plain"});
-                        } else if (result["status"] === "409") {
-                            res.writeHead(409, {"Content-Type": "text/plain"});
-                        }
+                        res.writeHead(Number(result['status']), {"Content-Type": "text/plain"});
 
                         out.log("ERROR", "Users.listUsers", "Encountered error " + result["status"] + ": " + result["detail"]);
                     } else {
@@ -197,11 +177,7 @@ class Users {
 
             db.updateUser(userModel, userId, reqUrl, function (result) {
                 if (result["status"] !== undefined) {
-                    if (result["status"] === "400") {
-                        res.writeHead(400, {"Content-Type": "text/plain"});
-                    } else if (result["status"] === "409") {
-                        res.writeHead(409, {"Content-Type": "text/plain"});
-                    }
+                    res.writeHead(Number(result['status']), {"Content-Type": "text/plain"});
 
                     out.log("ERROR", "Users.listUsers", "Encountered error " + result["status"] + ": " + result["detail"]);
                 } else {
